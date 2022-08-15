@@ -104,11 +104,26 @@ Basics
     String.raw()
     String.prototype[@@iterator]()
     String.prototype.at()
+      Метод at() принимает целочисленное значение и возвращает новую строку, состоящую из одной единицы кода UTF-16, расположенной с указанным смещением. Этот метод допускает использование положительных и отрицательных целых чисел. Отрицательные целые числа отсчитываются от последнего символа строки.
+      at(index)
+      index -- Индекс (позиция) возвращаемого строкового символа. Поддерживает относительную индексацию с конца строки при передаче отрицательного индекса; т.е. если используется отрицательное число, возвращаемый символ будет найден путем обратного отсчета от конца строки.
+
     String.prototype.charAt()
+      Метод charAt() возвращает указанный символ из строки.
+      str.charAt(index)
+      index -- Целое число от 0 до длины строки минус 1.
+
     String.prototype.charCodeAt()
+      Метод charCodeAt() возвращает числовое значение Юникода для символа по указанному индексу (за исключением кодовых точек Юникода, больших 0x10000).
+      str.charCodeAt(index)
+      index -- Целое число больше, либо равное 0 и меньше длины строки; если параметр не является числом, он устанавливается в 0. 
+
     String.prototype.codePointAt()
     String.prototype.concat()
+      Метод concat() объединяет строковые аргументы с вызывающей строкой и возвращает новую строку.
+
     String.prototype.endsWith()
+
     String.prototype.includes()
     String.prototype.indexOf()
     String.prototype.lastIndexOf()
@@ -138,16 +153,24 @@ Basics
 
 
   let var const - differences
+  
   ternary operator
   https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+  
   switch case - examples, where it can be useful
+  
   type conversions
 
 Advanced Expressions
 
-  Be able to discover cases of implicit data types conversion into boolean, string, number
+  Be able to discover cases of implicit data types conversion into 
+  
+  boolean, string, number
+  
   Strict comparison
+  
   Object.is (optional)
+  
   what is polyfills
 
 Function
@@ -157,6 +180,7 @@ Function
 Date & time (optional)
 
   Date object
+  
   Date methods, props
 
 Objects Built-in methods.
@@ -166,16 +190,20 @@ Objects Built-in methods.
 Arrays Built-in methods
 
   Know how to copy array
+  
   Know how to modify array
 
 Arrays Iterating, Sorting, Filtering
 
   Know how to sort Array
+  
   Know several method how to iterate Array elements
 
   Loops
     for loop
+    
     while loop
+    
     do while loop
 
 JavaScript in Browser:
@@ -187,18 +215,25 @@ Global object window
 Events Basics
 
   Event Phases
+  
   Event Listeners
+  
   DOM Events
+  
   Know basic Event types
+  
   Mouse / Keyboard Events
+  
   Form / Input Events
 
 Timers
 
   setTimeout
+  
   setInterval
 
 Web Storage API & cookies
 
   LocalStorage
+  
   SessionStorage
