@@ -674,13 +674,81 @@ Events Basics
   # Form / Input Events
 
 Timers
-
+https://learn.javascript.ru/settimeout-setinterval
   # setTimeout
+  let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
+  clearTimeout(timerId);
   
   # setInterval
+  let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
+  clearInterval(timerId)
 
 Web Storage API & cookies
+https://learn.javascript.ru/localstorage
+https://learn.javascript.ru/cookie
 
   # LocalStorage
   
   # SessionStorage
+
+  Объекты хранилища localStorage и sessionStorage предоставляют одинаковые методы и свойства:
+
+    setItem(key, value) – сохранить пару ключ/значение.
+    getItem(key) – получить данные по ключу key.
+    removeItem(key) – удалить данные с ключом key.
+    clear() – удалить всё.
+    key(index) – получить ключ на заданной позиции.
+    length – количество элементов в хранилище.
+
+    К сожалению, объекты веб-хранилища нельзя перебрать в цикле, они не итерируемы.
+
+    Но можно пройти по ним, как по обычным массивам:
+
+    for(let i=0; i<localStorage.length; i++) {
+      let key = localStorage.key(i);
+      alert(`${key}: ${localStorage.getItem(key)}`);
+    }
+
+    Другой способ – использовать цикл, как по обычному объекту for key in localStorage.
+
+    Здесь перебираются ключи, но вместе с этим выводятся несколько встроенных полей, которые нам не нужны:
+
+    // bad try
+    for(let key in localStorage) {
+      alert(key); // покажет getItem, setItem и другие встроенные свойства
+    }
+
+    …Поэтому нам нужно либо отфильтровать поля из прототипа проверкой hasOwnProperty:
+
+    for(let key in localStorage) {
+      if (!localStorage.hasOwnProperty(key)) {
+        continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+      }
+      alert(`${key}: ${localStorage.getItem(key)}`);
+    }
+
+    …Либо просто получить «собственные» ключи с помощью Object.keys, а затем при необходимости вывести их при помощи цикла:
+
+    let keys = Object.keys(localStorage);
+    for(let key of keys) {
+      alert(`${key}: ${localStorage.getItem(key)}`);
+    }
+
+    Последнее работает, потому что Object.keys возвращает только ключи, принадлежащие объекту, игнорируя прототип.
+
+API:
+
+    setItem(key, value) – сохранить пару ключ/значение.
+    getItem(key) – получить данные по ключу key.
+    removeItem(key) – удалить значение по ключу key.
+    clear() – удалить всё.
+    key(index) – получить ключ на заданной позиции.
+    length – количество элементов в хранилище.
+    Используйте Object.keys для получения всех ключей.
+    Можно обращаться к ключам как к обычным свойствам объекта, в этом случае событиеstorage не срабатывает.
+
+Событие storage:
+
+    Срабатывает при вызове setItem, removeItem, clear.
+    Содержит все данные об произошедшем обновлении (key/oldValue/newValue), url документа и объект хранилища storageArea.
+    Срабатывает на всех объектах window, которые имеют доступ к хранилищу, кроме того, где оно было сгенерировано (внутри вкладки для sessionStorage, глобально для localStorage).
