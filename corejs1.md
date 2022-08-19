@@ -32,7 +32,7 @@ Basics
           
   # Number methods
   https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Number
-    Number.isNaN() -- проверяет является ли переданное значение NaN.
+    **Number.isNaN() -- проверяет является ли переданное значение NaN.**
       Number.isNaN(NaN); // true
       Number.isNaN(Number.NaN); // true
       Number.isNaN(0 / 0) // true
@@ -51,8 +51,7 @@ Basics
       Number.isNaN('37.37');
       Number.isNaN('');
       Number.isNaN(' ');
-
-    Number.isFinite() -- проверяет является ли значение конечным числом.
+   **Number.isFinite() -- проверяет является ли значение конечным числом.**
       Number.isFinite(0);         // true
       Number.isFinite(2e64);      // true
       Number.isFinite(Infinity);  // false
@@ -60,9 +59,9 @@ Basics
       Number.isFinite(-Infinity); // false
       Number.isFinite('0');       // false
 
-    Number.isSafeInteger() -- проверяет является ли значение целочисленным
+   **Number.isSafeInteger() -- проверяет является ли значение безопасным целочисленным [-2^53 + 1; 2^53 - 1]**
       
-    Number.isInteger() -- проверяет является ли значение целочисленным
+   **Number.isInteger() -- проверяет является ли значение целочисленным**
       // простые значения
       Number.isInteger(0);         // true
       Number.isInteger(1);         // true
@@ -83,17 +82,32 @@ Basics
       Number.isInteger(5.0);       // true
       Number.isInteger(5.000000000000001); // false
       Number.isInteger(5.0000000000000001); // true
-    Number.parseFloat()
 
-    Number.parseInt()
+   **Number.parseFloat() -- разбирает строковый аргумент и возвращает число с плавающей запятой.**
+
+   **Number.parseInt() -- разбирает строковый аргумент и возвращает целое число.**
     // apply()
     // call()
     // toSource()
-    Number.prototype.toString()
-    Number.prototype.toExponential()
-    Number.prototype.toFixed()
-    Number.prototype.toLocaleString()
-    Number.prototype.toPrecision()
+
+   **Number.prototype.toString() --возвращает строковое представление указанного объекта Number**
+      numObj.toString([radix])
+        radix -- Необязательный параметр. Целое число между 2 и 36, определяющее основание системы счисления, используемой для представления числового значения.
+
+   **Number.prototype.toExponential() -- возвращает строку, представляющую объект Number в экспоненциальной записи.**
+    numObj.toExponential([fractionDigits])
+      fractionDigits -- Необязательный параметр. Целое число, определяющее количество цифр после десятичной запятой. По умолчанию используется столько цифр, сколько необходимо для указания числа. 
+
+   **Number.prototype.toFixed() -- форматирует число, используя запись с фиксированной запятой.**
+    numObj.toFixed([digits])
+      digits -- Необязательный параметр. Количество цифр после десятичной запятой; может быть значением между 0 и 20 включительно, хотя реализации могут поддерживать и больший диапазон значений. Если аргумент опущен, он считается равным 0.
+
+   **Number.prototype.toLocaleString() --  возвращает строку с языкозависимым представлением числа.**
+
+   **Number.prototype.toPrecision() -- возвращает строку, представляющую объект Number с указанной точностью.**
+    umObj.toPrecision([precision])
+      precision -- Необязательный параметр. Целое число, определяющее количество значащих цифр.
+
     Number.prototype.valueOf()
 
 
@@ -124,32 +138,57 @@ Basics
 
     String.prototype.endsWith()
 
-    String.prototype.includes()
-    String.prototype.indexOf()
-    String.prototype.lastIndexOf()
+    String.prototype.includes() -- проверяет, содержит ли строка заданную подстроку, и возвращает, соответственно true или false.
+      str.includes(searchString[, position])
+        searchString -- Строка для поиска в данной строке.
+        position -- (Необязательный) Позиция в строке, с которой начинать поиск строки searchString, по умолчанию 0. 
+
+    String.prototype.indexOf() -- Метод indexOf() возвращает индекс первого вхождения указанного значения в строковый объект String, на котором он был вызван, начиная с индекса fromIndex. Возвращает -1, если значение не найдено.
+    str.indexOf(searchValue, [fromIndex])
+      searchValue -- Строка, представляющая искомое значение.
+      fromIndex -- Необязательный параметр. Местоположение внутри строки, откуда начинать поиск. Может быть любым целым числом. Значение по умолчанию установлено в 0. Если fromIndex < 0, поиск ведётся по всей строке (так же, как если бы был передан 0). Если fromIndex >= str.length, метод вернёт -1, но только в том случае, если searchValue не равен пустой строке, в этом случае он вернёт str.length. 
+
+    String.prototype.lastIndexOf() -- возвращает индекс последнего вхождения указанного значения в строковый объект String, на котором он был вызван, или -1, если ничего не было найдено. Поиск по строке ведётся от конца к началу, начиная с индекса fromIndex.
+      searchValue -- Строка, представляющая искомое значение.
+      fromIndex -- Необязательный параметр. Местоположение внутри строки, откуда начинать поиск, нумерация индексов идёт слева направо. Может быть любым целым числом. Значение по умолчанию установлено в str.length. Если оно отрицательно, трактуется как 0. Если fromIndex > str.length, параметр fromIndex будет трактоваться как str.length. 
+
     String.prototype.localeCompare()
     String.prototype.match()
     String.prototype.matchAll()
     String.prototype.normalize()
     String.prototype.padEnd()
     String.prototype.padStart()
-    String.prototype.repeat()
-    String.prototype.replace()
-    String.prototype.replaceAll()
-    String.prototype.search()
-    String.prototype.slice()
-    String.prototype.split()
-    String.prototype.startsWith()
-    String.prototype.substring()
+
+    String.prototype.repeat() -- конструирует и возвращает новую строку, содержащую указанное количество соединённых вместе копий строки, на которой он был вызван.
+
+    String.prototype.replace() -- возвращает новую строку с некоторыми или всеми сопоставлениями с шаблоном, заменёнными на заменитель. Шаблон может быть строкой или регулярным выражением, а заменитель может быть строкой или функцией, вызываемой при каждом сопоставлении.
+    str.replace(regexp|substr, newSubStr|function[, flags])
+
+    String.prototype.replaceAll() -- возвращает новую строку со всеми совпадениями pattern , который меняется на replacement. 
+
+    String.prototype.search() -- выполняет поиск сопоставления между регулярным выражением и этим объектом String.
+
+    String.prototype.slice() --  извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
+
+    String.prototype.split() -- разбивает объект String на массив строк путём разделения строки указанной подстрокой.
+
+    String.prototype.startsWith() -- помогает определить, начинается ли строка с символов указанных в скобках, возвращая, соответственно, true или false.
+
     String.prototype.toLocaleLowerCase()
     String.prototype.toLocaleUpperCase()
+
     String.prototype.toLowerCase()
-    String.prototype.toString()
+    
+    String.prototype.toString() -- возвращает строку, представляющую указанный объект.
+    
     String.prototype.toUpperCase()
-    String.prototype.trim()
+
+    String.prototype.trim() -- удаляет пробельные символы с начала и конца строки. Пробельными символами в этом контексте считаются все собственно пробельные символы (пробел, табуляция, неразрывный пробел и прочие) и все символы конца строки (LF, CR и прочие).
+
     String.prototype.trimEnd()
     String.prototype.trimStart()
-    String.prototype.valueOf()
+
+    String.prototype.valueOf() -- возвращает примитивное значение объекта String.
 
 
   # let var const - differences
@@ -200,27 +239,27 @@ https://medium.com/nuances-of-programming/var-let-const-%D0%B2-%D1%87%D0%B5%D0%B
   # type conversions
   https://learn.javascript.ru/type-conversions
   https://learn.javascript.ru/object-toprimitive
-    Преобразование объекта в примитив вызывается автоматически многими  встроенными функциями и операторами, которые ожидают примитив в качестве   значения.
+    Преобразование объекта в примитив вызывается автоматически многими встроенными функциями и операторами, которые ожидают примитив в качестве значения.
 
     Существует всего 3 типа (хинта) для этого:
 
         "string" (для alert и других операций, которым нужна строка)
         "number" (для математических операций)
-        "default" (для некоторых других операторов, обычно объекты реализуют его    как "number")
+        "default" (для некоторых других операторов, обычно объекты реализуют его как "number")
 
-    Спецификация явно описывает для каждого оператора, какой ему следует    использовать хинт.
+    Спецификация явно описывает для каждого оператора, какой ему следует использовать хинт.
 
     Алгоритм преобразования таков:
 
-        Сначала вызывается метод obj[Symbol.toPrimitive](hint), если он   существует,
+        Сначала вызывается метод obj[Symbol.toPrimitive](hint), если он существует,
         В случае, если хинт равен "string"
-            происходит попытка вызвать obj.toString() и obj.valueOf(), смотря   что   есть.
+            происходит попытка вызвать obj.toString() и obj.valueOf(), смотря что есть.
         В случае, если хинт равен "number" или "default"
-            происходит попытка вызвать obj.valueOf() и obj.toString(), смотря   что   есть.
+            происходит попытка вызвать obj.valueOf() и obj.toString(), смотря что есть.
 
     Все эти методы должны возвращать примитив (если определены).
 
-    На практике часто бывает достаточно реализовать только obj.toString() в     качестве универсального метода для преобразований к строке, который должен    возвращать удобочитаемое представление объекта для целей логирования или    отладки.
+    На практике часто бывает достаточно реализовать только obj.toString() в качестве универсального метода для преобразований к строке, который должен возвращать удобочитаемое представление объекта для целей логирования или отладки.
 
 Advanced Expressions
 
@@ -303,14 +342,14 @@ Function
 Создание    | Создаются до              | Создаются в процессе         | Создаются в процессе
             | выполнения кода           | выполнения выражения         | выполнения выражения 
 ----------------------------------------------------------------------------------------------------
-Вызов       | Можно вызвать до          | Нельзя вызвать до объявления |
+Вызов       | Можно вызвать до          | Нельзя вызвать до объявления | Нельзя вызвать до объявления
             | объявления                |                              |
 ----------------------------------------------------------------------------------------------------
 Поднятие    | Поднимаются               | Не поднимаются               | Не поднимаются          
 ----------------------------------------------------------------------------------------------------
 Контекст    | this динамическое в зависимости от контекста исполнения. | this всегда равен значению
  this       | Обычный вызов -- this = Window. Вызов метода --          | this внешней функции.
-            | this = instance объекта. Косвенный вызов (call, apply)   | Функцияя не создает свой
+            | this = instance объекта. Косвенный вызов (call, apply)   | Функция не создает свой
             | -- this = первому переданному аргументу.                 | контекст исполнения,
             | myFunc.call(thisVal, arg1, ..., argN)                    | она использует внешний.
             | myFunc.apply(thisVal, [arg1, ..., argN])                 |
@@ -434,8 +473,8 @@ Date & time (optional)
 
     Методы вывода без локализации:
 
-    toString(), toDateString(), toTimeString() Возвращают стандартное строчное представление, не  заданное   жёстко в стандарте, а зависящее от браузера. Единственное требование к нему – читаемость  человеком.
-    
+    toString(), toDateString(), toTimeString() Возвращают стандартное строчное представление, не заданное жёстко в стандарте, а зависящее от браузера. Единственное требование к нему – читаемость человеком.
+
     toString() -- возвращает дату целиком,
     toDateString() и toTimeString() – только дату и время соответственно.
 
@@ -445,7 +484,7 @@ Date & time (optional)
 
     toUTCString() То же самое, что toString(), но дата в зоне UTC.
 
-    toISOString() Возвращает дату в формате ISO Детали формата будут далее. Поддерживается современными браузерами, не поддерживается IE8-.
+    toISOString() Возвращает дату в формате ISO. Поддерживается современными браузерами, не поддерживается IE8-.
 
     var d = new Date();
 
@@ -462,7 +501,7 @@ Date & time (optional)
       YYYY-MM-DD – дата в формате год-месяц-день.
       Обычный символ T используется как разделитель.
       HH:mm:ss.sss – время: часы-минуты-секунды-миллисекунды.
-      Часть 'Z' обозначает временную зону – в формате +-hh:mm, либо символ Z, обозначающий UTC. По    стандарту её можно не указывать, тогда UTC, но в Safari с этим ошибка, так что лучше указывать    всегда.
+      Часть 'Z' обозначает временную зону – в формате +-hh:mm, либо символ Z, обозначающий UTC. По стандарту её можно не указывать, тогда UTC, но в Safari с этим ошибка, так что лучше указывать всегда.
 
     Также возможны укороченные варианты, например YYYY-MM-DD или YYYY-MM или даже только YYYY.
 
@@ -485,63 +524,107 @@ Date & time (optional)
 
     Метод Date.now() возвращает дату сразу в виде миллисекунд.
 
-    Технически, он аналогичен вызову +new Date(), но в отличие от него не создаёт промежуточный объект    даты, а поэтому – во много раз быстрее.
+    Технически, он аналогичен вызову +new Date(), но в отличие от него не создаёт промежуточный объект даты, а поэтому – во много раз быстрее.
 
-    Его использование особенно рекомендуется там, где производительность при работе с датами критична.    Обычно это не на веб-страницах, а, к примеру, в разработке игр на JavaScript.
+    Его использование особенно рекомендуется там, где производительность при работе с датами критична. Обычно это не на веб-страницах, а, к примеру, в разработке игр на JavaScript.
 
 Objects Built-in methods.
 
   # Know how to use built-in methods
   https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object
-  Object.assign()
-  Object.create()
+  Object.assign() -- используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект. После копирования он возвращает целевой объект.
+
+  Object.create() -- создаёт новый объект с указанным прототипом и свойствами.
+  let animal = {
+    eats: true
+  };
+  
+  let rabbit = Object.create(animal, {
+    jumps: {
+      value: true
+    }
+  });
+
+  alert(rabbit.jumps); // true
+  
   Object.defineProperties()
   Object.defineProperty()
-  Object.entries()
-  Object.freeze()
-  Object.fromEntries()
+
+  Object.entries() -- метод возвращает массив собственных перечисляемых свойств указанного объекта в формате [key, value], в том же порядке, что и в цикле for...in (разница в том, что for-in перечисляет свойства из цепочки прототипов). Порядок элементов в массиве который возвращается Object.entries() не зависит от того как объект объявлен. Если существует необходимость в определённом порядке, то массив должен быть отсортирован до вызова метода, например Object.entries(obj).sort((a, b) => a[0] - b[0]);.
+
+  Object.freeze() -- замораживает объект: это значит, что он предотвращает добавление новых свойств к объекту, удаление старых свойств из объекта и изменение существующих свойств или значения их атрибутов перечисляемости, настраиваемости и записываемости. В сущности, объект становится эффективно неизменным. Метод возвращает замороженный объект.
+
+  Object.fromEntries() -- преобразует список пар ключ-значение в объект.
+
   Object.getOwnPropertyDescriptor()
   Object.getOwnPropertyDescriptors()
   Object.getOwnPropertyNames()
   Object.getOwnPropertySymbols()
-  Object.getPrototypeOf()
-  Object.hasOwn()
-  Object.prototype.hasOwnProperty()
-  Object.is()
+
+  Object.getPrototypeOf() -- возвращает прототип (то есть, внутреннее свойство [[Prototype]]) указанного объекта.
+
+  Object.hasOwn() -- возвращает логическое значение, указывающее, содержит ли объект указанное свойство.
+  Object.prototype.hasOwnProperty() -- возвращает логическое значение, указывающее, содержит ли объект указанное свойство.
+  Object.is() -- определяет, являются ли два значения одинаковыми значениями
+  
   Object.isExtensible()
-  Object.isFrozen()
+  Object.isFrozen() -- определяет, был ли объект заморожен.
+
   Object.prototype.isPrototypeOf()
-  Object.isSealed()
-  Object.keys()
-  Object.preventExtensions()
+
+  Object.isSealed() --  определяет, является ли объект запечатанным.
+
+  Object.keys() -- возвращает массив из собственных перечисляемых свойств переданного объекта, в том же порядке, в котором они бы обходились циклом for...in (разница между циклом и методом в том, что цикл перечисляет свойства и из цепочки прототипов).
+
+  Object.preventExtensions() -- предотвращает добавление новых свойств к объекту (то есть, предотвращает расширение этого объекта в будущем).
+
   Object.prototype.propertyIsEnumerable()
-  Object.seal()
+
+  Object.seal() -- запечатывает объект, предотвращая добавление новых свойств к объекту и делая все существующие свойства не настраиваемыми. Значения представленных свойств всё ещё могут изменяться, поскольку они остаются записываемыми.
+
   Object.setPrototypeOf()
+
   Object.prototype.toLocaleString()
-  Object.prototype.toString()
-  Object.prototype.valueOf()
-  Object.values()
+
+  Object.prototype.toString() -- возвращает строку, представляющую объект.
+
+  Object.prototype.valueOf() -- возвращает примитивное значение указанного объекта.
+
+  Object.values() -- возвращает массив значений перечисляемых свойств объекта в том же порядке что и цикл for...in. Разница между циклом и методом в том, что цикл перечисляет свойства и из цепочки прототипов.
 
 Arrays Built-in methods
   Array.isArray()
   Array.from()
   Array.of()
-  Array.prototype.at()
-  Array.prototype.concat()
+  Array.prototype.at() -- принимает значение в виде целого числа и возвращает элемент массива с данным индексом. В качестве аргумента метод принимает положительные и отрицательные числа. При отрицательном значении отсчёт происходит с конца массива.
+
+  Array.prototype.concat() -- возвращает новый массив, состоящий из массива, на котором он был вызван, соединённого с другими массивами и/или значениями, переданными в качестве аргументов.
+
   Array.prototype.copyWithin()
-  Array.prototype.entries()
-  Array.prototype.every()
-  Array.prototype.fill()
-  Array.prototype.filter()
-  Array.prototype.find()
+
+  Array.prototype.entries() -- возвращает новый объект итератора массива Array Iterator, содержащий пары ключ / значение для каждого индекса в массиве.
+
+  Array.prototype.every() -- проверяет, удовлетворяют ли все элементы массива условию, заданному в передаваемой функции.
+
+  Array.prototype.fill() -- заполняет все элементы массива от начального до конечного индексов одним значением.
+
+  Array.prototype.filter() -- создаёт новый массив со всеми элементами, прошедшими проверку, задаваемую в передаваемой функции.
+
+  Array.prototype.find() -- возвращает значение первого найденного в массиве элемента, которое удовлетворяет условию переданному в callback функции. В противном случае возвращается undefined.
+
   Array.prototype.findIndex()
   Array.prototype.findLast()
   Array.prototype.findLastIndex()
-  Array.prototype.flat()
+
+  Array.prototype.flat() -- возвращает новый массив, в котором все элементы вложенных подмассивов были рекурсивно "подняты" на указанный уровень depth.
+
   Array.prototype.flatMap()
   Array.prototype.forEach()
+
   Array.prototype.includes()
+
   Array.prototype.indexOf()
+
   Array.prototype.join()
   Array.prototype.keys()
   Array.prototype.lastIndexOf()
@@ -553,13 +636,15 @@ Arrays Built-in methods
   Array.prototype.reverse()
   Array.prototype.shift()
   Array.prototype.slice()
-  Array.prototype.some()
+
+  Array.prototype.some() -- проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
+
   Array.prototype.sort()
-  Array.prototype.splice()
+  Array.prototype.splice() -- изменяет содержимое массива, удаляя существующие элементы и/или добавляя новые.
   Array.prototype.toLocaleString()
   Array.prototype.toString()
   Array.prototype.unshift()
-  Array.prototype.values()
+  Array.prototype.values() -- возвращает новый объект итератора массива Array Iterator, содержащий значения для каждого индекса в массиве.
 
 
 
@@ -586,6 +671,10 @@ Arrays Iterating, Sorting, Filtering
       code;
     }
 
+    for ..in -- по ключам
+
+    for ..of -- по значениям
+
     while loop
     let i = 0;
     while (i < 5) {
@@ -599,11 +688,6 @@ Arrays Iterating, Sorting, Filtering
       code;
       i++;
     } while(i < 5)
-
-
-
-
-
 
 
 JavaScript in Browser:
@@ -658,12 +742,12 @@ Events Basics
   options
       Дополнительный объект со свойствами:
   
-          once: если true, тогда обработчик будет автоматически удалён после   выполнения.
-          capture: фаза, на которой должен сработать обработчик, подробнее об    этом будет рассказано в главе Всплытие и погружение. Так исторически   сложилось, что options может быть false/true, это то же самое, что   {capture: false/true}.
-          passive: если true, то указывает, что обработчик никогда не вызовет    preventDefault(), подробнее об этом будет рассказано в главе Действия    браузера по умолчанию.
+          once: если true, тогда обработчик будет автоматически удалён после выполнения.
+          capture: фаза, на которой должен сработать обработчик, подробнее об этом будет рассказано в главе Всплытие и погружение. Так исторически   сложилось, что options может быть false/true, это то же самое, что {capture: false/true}.
+          passive: если true, то указывает, что обработчик никогда не вызовет preventDefault().
   
   Для удаления обработчика следует использовать removeEventListener:
-  
+
   element.removeEventListener(event, handler[, options]);
   
   # DOM Events
