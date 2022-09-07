@@ -238,41 +238,174 @@ Functions Parameters / Arguments
   Know difference between parameters passing by value and by reference
   Know how to handle dynamic amount of Function parameters
 
-ECMAScript Intermediate
+ # ECMAScript Intermediate
 
-  Function default parameters
-  ECMA script modules
-  Know how to use spread operator for Function arguments
-  Be able to compare arguments and rest parameters
-  Spread operator for Array
-  Understand and able to use spread operator for Array concatenation Destructuring assignment
-  Be able to discover destructuring assignment concept
-  Understand variables and Function arguments destructuring assignment
-  String templates
-  Know how for..of loop works (optional)
+  # Function default parameters
+    function add(a = 0, b = 2) {}
 
-Advanced Functions
+  # ECMA script modules
+  https://learn.javascript.ru/modules-intro
+    Модуль – это просто файл. Один скрипт – это один модуль.
 
-  this scope
-  Reference Type & losing this
-  Understand difference between function and method
-  Understand how this works, realize this possible issues
-  Manage this scope
-  Be able to replace this scope
-  Be able to use call and apply Function built-in methods
+    Модули могут загружать друг друга и использовать директивы export и import, чтобы обмениваться функциональностью, вызывать функции одного модуля из другого:
 
-Functional Patterns
+    export отмечает переменные и функции, которые должны быть доступны вне текущего модуля.
+    import позволяет импортировать функциональность из других модулей.
 
-  Immediately invoked functional expression (IIFE) (optional)
+    !!!В модуле на верхнем уровне this не определён (undefined).
+
+    загрузка внешних модулей, таких как <script type="module" src="...">, не блокирует обработку HTML.
+    модули, даже если загрузились быстро, ожидают полной загрузки HTML документа, и только затем выполняются.
+    сохраняется относительный порядок скриптов: скрипты, которые идут раньше в документе, выполняются раньше.
+
+
+  # Know how to use spread operator for Function arguments
+    function (...args) {}
+    function (a, b, ...args) {}
+
+  # Be able to compare arguments and rest parameters
+    Arguments -- псевдомассив, не содержит методы массивов. Хотя можно перебирать.
+    Все аргументы находятся в псевдомассиве под своими порядковыми номерами.
+
+    function(...rest) {}
+    rest -- полноценный массив
+
+  # Spread operator for Array
+    let [a, b] = array;
+
+  # Understand and able to use spread operator for Array concatenation Destructuring assignment
+    let d = [...array1, ...array2];
+
+  # Be able to discover destructuring assignment concept
+  https://learn.javascript.ru/destructuring
+
+  # Understand variables and Function arguments destructuring assignment
+  https://learn.javascript.ru/destructuring-assignment
+    Пропускайте элементы, используя запятые
+    Нежелательные элементы массива также могут быть отброшены с помощью дополнительной запятой:
+    // второй элемент не нужен
+    let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+    alert( title ); // Consul
+
+    // цикл по ключам и значениям
+    for (let [key, value] of Object.entries(user)) {
+      alert(`${key}:${value}`); // name:John, затем age:30
+    }
+
+    Трюк обмена переменных
+    [guest, admin] = [admin, guest];
+
+
+      let options = {
+      title: "Menu",
+      width: 100,
+      height: 200
+    };
+
+    // { sourceProperty: targetVariable }
+    let {width: w, height: h, title} = options; //переименование
+
+    // width -> w
+    // height -> h
+    // title -> title
+
+    alert(title);  // Menu
+    alert(w);      // 100
+    alert(h);      // 200
+
+  # String templates
+  https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Template_literals
+  `строка текста ${выражение} строка текста`
+
+  # Know how for..of loop works (optional)
+  https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/for...of
+  Оператор for...of выполняет цикл обхода итерируемых объектов (включая Array, Map (en-US), Set, объект аргументов и подобных), вызывая на каждом шаге итерации операторы для каждого значения из различных свойств объекта.
+
+# Advanced Functions
+
+  # this scope
+
+  # Reference Type & losing this
+  https://learn.javascript.ru/bind
+  При передаче методов объекта в качестве колбэков, например для setTimeout, возникает известная проблема – потеря this.
+  Метод bind возвращает «привязанный вариант» функции func, фиксируя контекст this и первые аргументы   arg1, arg2…, если они заданы.
+
+  Обычно bind применяется для фиксации this в методе объекта, чтобы передать его в качестве колбэка.  Например, для setTimeout.
+
+  Когда мы привязываем аргументы, такая функция называется «частично применённой» или «частичной».
+
+  Частичное применение удобно, когда мы не хотим повторять один и тот же аргумент много раз. Например,  если у нас есть функция send(from, to) и from всё время будет одинаков для нашей задачи, то мы можем   создать частично применённую функцию и дальше работать с ней.
+
+  # Understand difference between function and method
+    Значение this вычисляется во время выполнения кода, в зависимости от контекста.
+    Вызов без объекта: this == undefined
+
+    Мы даже можем вызвать функцию вообще без объекта:
+
+    function sayHi() {
+      alert(this);
+    }
+
+    sayHi(); // undefined
+
+    В строгом режиме ("use strict") в таком коде значением this будет являться undefined. Если мы     попытаемся получить доступ к this.name – это вызовет ошибку.
+
+    В нестрогом режиме значением this в таком случае будет глобальный объект (window в браузерe, мы     вернёмся к этому позже в главе Глобальный объект). Это – исторически сложившееся поведение this,    которое исправляется использованием строгого режима ("use strict").
+
+    Обычно подобный вызов является ошибкой программирования. Если внутри функции используется this, тогда     она ожидает, что будет вызвана в контексте какого-либо объекта.
+
+
+
+  # Understand how this works, realize this possible issues
+
+  # Manage this scope
+
+  # Be able to replace this scope
+  func.bind(newThis);
+
+  # Be able to use call and apply Function built-in methods
+  https://learn.javascript.ru/call-apply-decorators
+
+
+# Functional Patterns
+
+  # Immediately invoked functional expression (IIFE) (optional)
+    // Пути создания IIFE
+
+    (function() {
+      alert("Скобки вокруг функции");
+    })();
+
+    (function() {
+      alert("Скобки вокруг всего");
+    }());
+
+    !function() {
+      alert("Выражение начинается с логического оператора NOT");
+    }();
+
+    +function() {
+      alert("Выражение начинается с унарного плюса");
+    }();
+
+
   Know IIFE pattern (optional)
-  Callback (Function as argument)
-  Know callback pattern
-  Understand callback limitations (callback hell) (optional)
-  Binding, binding one function twice
-  Know how to bind this scope to function
-  Carrying and partial functions
 
-Network requests
+  Callback (Function as argument)
+
+  Know callback pattern
+
+  Understand callback limitations (callback hell) (optional)
+
+  Binding, binding one function twice
+
+  Know how to bind this scope to function
+
+  Carrying and partial functions
+  https://learn.javascript.ru/currying-partials
+
+
+# Network requests
 
   Fetch (with usage)
   XMLHTTPRequest (concept) (optional)
@@ -437,12 +570,21 @@ Common web-security knowledge (optional)
 Coding tasks:
 
   Function.prototype.bind implement polyfill
+
   Object.create implement polyfill
+
   Array.flat implement polyfill
+
   Array.reduce implement polyfill
+
   'hello world'.repeating(3) -> 'hello world hello world hello world'. How to implement?
+
   myFunc('!', 4, -10, 34, 0) -> '4!-10!34!0`. How to implement?
+
   five(plus(seven(minus(three())))) -> 9. How to implement?
+  
   add(5)(9)(-4)(1) -> 11. How to implement?
+
   periodOutput(period) method should output in the console once per every period how mach time has passed since the first function call. Example: periodOutput(100) -> 100(after 100 ms), 200(after 100 ms), 300(after 100 ms), ...
+
   extendedPeriodOutput(period) method should output in the console once per period how mach time has passed since the first function call and then increase the period. Example: // extendedPeriodOutput(100) -> 100(after 100 ms), 200(after 200 ms), 300(after 300 ms)
