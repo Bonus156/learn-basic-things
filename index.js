@@ -1,24 +1,48 @@
-function Hero(name, level) {
-	this.name = name;
-	this.level = level;
+const car = {
+  isRun() {
+    console.log('run car');
+  }
 }
 
-// Adding a method to the constructor
-Hero.prototype.greet = function() {
-	return `${this.name} says hello.`;
+const ladaCar = {
+  __proto__: car,
+  name: 'lada',
 }
 
-// class Hero {
-// 	constructor(name, level) {
-// 		this.name = name;
-// 		this.level = level;
-// 	}
+car.isStop = function() {
+  console.log('stop car');
+}
 
-// 	// Adding a method to the constructor
-// 	greet() {
-// 		return `${this.name} says hello.`;
-//     }
+ladaCar.isRun();
+ladaCar.isStop();
+
+console.log('ladacar', ladaCar);
+console.log('car', car);
+
+// ladaCar.prototype.isRet = function() {
+//   console.log('fuck');
 // }
 
-const hero1 = new Hero('Varg', 1);
-console.log(hero1)
+
+console.log('ladacar2', ladaCar);
+console.log('car2', car);
+
+// car.isRet();
+
+function F() {
+  this.namer = 'funfuck';
+}
+
+// F.prototype = {};
+
+console.log(F.prototype);
+
+const ff = new F();
+
+console.log('ff', ff);
+
+ladaCar.__proto__ = F.prototype;
+
+const sexCar = new ladaCar.constructor;
+console.log('sc', sexCar);
+console.log(ladaCar.prototype );
