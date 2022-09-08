@@ -458,38 +458,107 @@ Objects Built-in methods.
   XMLHTTPRequest (concept) (optional)
   WebSocket (concept) (optional)
 
-Web components
+# Web components
 
-  Web components, shadow DOM (concept) (optional)
+  # Web components, shadow DOM (concept) (optional)
+    https://learn.javascript.ru/shadow-dom
+    https://learn.javascript.ru/slots-composition
+    https://learn.javascript.ru/shadow-dom-style
+    https://learn.javascript.ru/mutation-observer
 
-Date & time
+    Теневой DOM – это способ создать свой, изолированный, DOM для компонента.
+
+    shadowRoot = elem.attachShadow({mode: open|closed}) – создаёт теневой DOM для elem. Если mode="open", он доступен через свойство elem.shadowRoot.
+    Мы можем создать подэлементы внутри shadowRoot с помощью innerHTML или других методов DOM.
+
+    Элементы теневого DOM:
+
+    Обладают собственной областью видимости идентификаторов
+    Невидимы JavaScript селекторам из главного документа, таким как querySelector,
+    Стилизуются своими стилями из теневого дерева, не из главного документа.
+
+    Теневой DOM, если имеется, отрисовывается браузером вместо обычных потомков (light DOM).
+
+# Date & time
 
   Timezones (optional)
   Internationalization js (Intl) (optional)
 
-Closures Advanced
+# Closures Advanced
 
   Context (lexical environment)
+
   Understand function creation context (lexical environment)
+
   Be able to explain difference between scope and context
+  https://telegra.ph/Raznica-mezhdu-kontekstom-context-i-oblastyu-vidimosti-scope-v-JavaScript-03-30
+
   Inner/outer lexical environment
+
   Understand lexical environment traversing mechanism
+
   Understand connection between function and lexical environment
 
-Object Oriented Programming
+# Object Oriented Programming
 
-  new keyword
-  Understand how new keyword works
-  Function constructor
-  Know function constructor concept
-  Able to create constructor functions
-  Public, private, static members
-  Know how to create public members
-  Know how to create private members
-  Know how to create static members
-  Understand OOP emulation patterns and conventions
+   **new keyword**
+   **Understand how new keyword works**
+   **Function constructor**
+   **Know function constructor concept**
+   **Able to create constructor functions**
+  https://learn.javascript.ru/constructor-new
 
-Prototypal Inheritance Basics
+  Функции-конструкторы технически являются обычными функциями. Но есть два соглашения:
+    Имя функции-конструктора должно начинаться с большой буквы.
+    Функция-конструктор должна выполняться только с помощью оператора "new".
+
+  Используя специальное свойство new.target внутри функции, мы можем проверить, вызвана ли функция при помощи оператора new или без него.
+
+  В случае обычного вызова функции new.target будет undefined. Если же она была вызвана при помощи new, new.target будет равен самой функции.
+  Это можно использовать внутри функции, чтобы узнать, была ли она вызвана при помощи new, «в режиме конструктора», или без него, «в обычном режиме».
+
+  Также мы можем сделать, чтобы вызовы с new и без него делали одно и то же.
+  Такой подход иногда используется в библиотеках, чтобы сделать синтаксис более гибким. Чтобы люди могли вызывать функцию с new и без него, и она все ещё могла работать.
+
+  При возврате из функции конструктора примитивного значения, либо пустой return возвращается this, при возврате объекта --- возвращается указанный объект.
+
+    Функции-конструкторы или просто конструкторы, являются обычными функциями, но существует общепринятое соглашение именовать их с заглавной буквы.
+    Функции-конструкторы следует вызывать только с помощью new. Такой вызов подразумевает создание пустого this в начале и возврат заполненного в конце.
+
+    Мы можем использовать конструкторы для создания множества похожих объектов.
+
+    JavaScript предоставляет функции-конструкторы для множества встроенных объектов языка: таких как Date, Set, и других, которые нам ещё предстоит изучить.
+
+
+  # Public, private, static members
+  
+  Защищённые свойства обычно начинаются с префикса _.
+  Это не синтаксис языка: есть хорошо известное соглашение между программистами, что такие свойства и методы не должны быть доступны извне. Большинство программистов следуют этому соглашению.
+
+  **Know how to create public members**
+  По умолчанию создаются только публичные свойства.
+  
+  **Know how to create private members**
+  Есть новшество в языке JavaScript, которое почти добавлено в стандарт: оно добавляет поддержку приватных свойств и методов.
+  Приватные свойства и методы должны начинаться с #. Они доступны только внутри класса.
+
+  **Know how to create static member**
+  class Article {
+  constructor(title, date) {
+    this.title = title;
+    this.date = date;
+  }
+// Метод объявляется статическим.
+  static createTodays() {
+    // помним, что this = Article
+    return new this("Сегодняшний дайджест", new Date());
+  }
+}
+
+  **Understand OOP emulation patterns and conventions**
+
+
+# Prototypal Inheritance Basics
 
   __proto__ property
   Understand __proto__ object property
@@ -500,22 +569,98 @@ Prototypal Inheritance Basics
   Understand dependency between function constructor prototype and instance __proto__
   Able to create 'class' methods using function prototype property
 
-ECMAScript Classes
+# ECMAScript Classes
 
   Class declaration
   Know class declaration syntax
+  
   Understand difference between class and constructor function
+  https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript-ru
+
+
+                  |  Function constructor              | Class
+--------------------------------------------------------------------------------------------
+Определение       |function Hero(name, level) {        |class Hero {
+класса            |  this.name = name;                 | constructor(name, level) {
+                  |  this.level = level;               |   this.name = name;
+                  |}                                   |   this.level = level;
+                  |                                    |  }
+                  |                                    |}
+--------------------------------------------------------------------------------------------
+Определение       |Hero.prototype.greet = function() { | greet() {
+методов           | return `${this.name} says hello.`; |  return `${this.name} says hello.`;
+                  |}                                   | }
+--------------------------------------------------------------------------------------------
+Расширение        |function Mage(name, level, spell) { |class Mage extends Hero {
+класса            | // Chain constructor with call     |  constructor(name, level, spell) {
+                  | Hero.call(this, name, level);      |  // Chain constructor with super
+                  |                                    |    super(name, level);
+                  | this.spell = spell;                |    // Add a new property
+                  |}                                   |    this.spell = spell;
+                  |Новые функции конструктора можно    |  }
+                  |создавать на основе родительского   |}
+                  |экземпляра с помощью метода call(). |Для классов ES6 ключевое слово super 
+                  |В примере ниже мы создадим более    |используется вместо call для доступа к 
+                  |конкретный класс персонажа Mage и   |родительским функциям. Мы будем использовать
+                  |присвоим ему свойства Hero с помощью|extends для обозначения родительского класса.
+                  |метода call(), а также добавим      |
+                  |дополнительное свойство.            |
+-------------------------------------------------------------------------------------------
+
   Getter/setter
   What does super() do and where we have to use it?
 
-ECMAScript Data Types & Expressions
+# ECMAScript Data Types & Expressions
 
   Object keys/values
-  Object calculated props
-  Set/Map data types
-  WeakSet/WeakMap data types
 
-JavaScript Errors
+  **Object calculated props**
+  // Вычисление имён свойств (ES2015)
+    var prop = 'foo';
+    var o = {
+      [prop]: 'hey',
+      ['b' + 'ar']: 'there'
+    };
+
+  Начиная с ECMAScript 2015, синтаксис объявления объектов также поддерживает вычисляемые имена свойств. Это позволяет добавлять в скобки [] выражение, которое будет вычислено, как имя свойства. Это похоже на скобочную нотацию синтаксиса property accessor, которую вы, вероятно, уже использовали, чтобы прочитать и задать свойство. Теперь можно использовать аналогичный способ с литеральными объектами:
+
+  **Set/Map data types**
+  Map
+
+  Map – это коллекция ключ/значение, как и Object. Но основное отличие в том, что Map позволяет использовать ключи любого типа.
+
+  Методы и свойства:
+    new Map() – создаёт коллекцию.
+    map.set(key, value) – записывает по ключу key значение value.
+    map.get(key) – возвращает значение по ключу или undefined, если ключ key отсутствует.
+    map.has(key) – возвращает true, если ключ key присутствует в коллекции, иначе false.
+    map.delete(key) – удаляет элемент по ключу key.
+    map.clear() – очищает коллекцию от всех элементов.
+    map.size – возвращает текущее количество элементов.
+
+  Set
+
+  Объект Set – это особый вид коллекции: «множество» значений (без ключей), где каждое значение может появляться только один раз.
+
+  Его основные методы это:
+    new Set(iterable) – создаёт Set, и если в качестве аргумента был предоставлен итерируемый объект (обычно это массив), то копирует его значения в новый Set.
+    set.add(value) – добавляет значение (если оно уже есть, то ничего не делает), возвращает тот же объект set.
+    set.delete(value) – удаляет значение, возвращает true, если value было в множестве на момент вызова, иначе false.
+    set.has(value) – возвращает true, если значение присутствует в множестве, иначе false.
+    set.clear() – удаляет все имеющиеся значения.
+    set.size – возвращает количество элементов в множестве.
+
+  Основная «изюминка» – это то, что при повторных вызовах set.add() с одним и тем же значением ничего не происходит, за счёт этого как раз и получается, что каждое значение появляется один раз.
+
+  Например, мы ожидаем посетителей, и нам необходимо составить их список. Но повторные визиты не должны приводить к дубликатам. Каждый посетитель должен появиться в списке только один раз.
+
+  Перебор Map и Set всегда осуществляется в порядке добавления элементов, так что нельзя сказать, что это – неупорядоченные коллекции, но поменять порядок элементов или получить элемент напрямую по его номеру нельзя.
+
+
+  WeakSet/WeakMap data types
+  https://learn.javascript.ru/weakmap-weakset
+
+# JavaScript Errors
 
   try..catch statement
   Know how to handle errors
