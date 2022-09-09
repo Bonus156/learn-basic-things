@@ -1,12 +1,16 @@
 function Hero(name, level) {
 	this.name = name;
 	this.level = level;
+  // Adding a method to the constructor
+  Hero.prototype.greet = function() {
+    return `${this.name} says hello.`;
+  }
 }
 
 // Adding a method to the constructor
-Hero.prototype.greet = function() {
-	return `${this.name} says hello.`;
-}
+// Hero.prototype.greet = function() {
+//   return `${this.name} says hello.`;
+// }
 
 // class Hero {
 // 	constructor(name, level) {

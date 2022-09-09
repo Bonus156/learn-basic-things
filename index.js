@@ -46,3 +46,13 @@ ladaCar.__proto__ = F.prototype;
 const sexCar = new ladaCar.constructor;
 console.log('sc', sexCar);
 console.log(ladaCar.prototype );
+
+const oo = {
+  j: 'jopa',
+  add(a, b) {
+    console.log(this.j);
+    return a + b;
+  }
+}
+
+setTimeout(oo.add.bind(oo), 1000);
