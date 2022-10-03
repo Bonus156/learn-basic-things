@@ -186,4 +186,10 @@ ng g directive directives/new-my-direct
     </p>
     Используется для написания документации.
 
-  
+  @HostListener -- Закидывает листенер в на коренной элемент, что позволяет избежать привязок и интерполяций.
+
+  Пример использования
+  @HostListener('mouseenter', ['$event'])
+  public onMouseEnter(event: MouseEnter) {
+    console.log('Mouse Enter Event');
+  }
