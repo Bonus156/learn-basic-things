@@ -193,3 +193,139 @@ ng g directive directives/new-my-direct
   public onMouseEnter(event: MouseEnter) {
     console.log('Mouse Enter Event');
   }
+
+  @HostBindings -- Позволяет обратиться к стандартному атрибуту
+
+  @HostBindings('attr.aria-label') public label = 'This is an aria-label';
+
+# Структурные директивы
+Структурные директивы предоставляют возможность менять структуру элемента, аналогично *ngIf и *ngFor.
+
+<ng-template> - по умолчанию не показывается, пока предварительно не обратиться к нему
+
+Директива *ngIf -- Предназначена для условного вывода элемента в DOM.
+
+Пример при использовании стандартной директивы *ngIf
+<div *ngIf="hero" class="name">{{ hero.name }}</div>
+преобразуется в :
+<ng-template [ngIf]="hero">
+  <div class="name">{{ hero.name }}</div>
+</ng-template>
+
+Else microsyntax директивы *ngIf
+
+<div class="feed" *ngIf="posts; else loading">
+  ...
+</div>
+используется с:
+<ng-template #loading>
+  <div>Loading...</div>
+</ng-template>
+
+*ngSwitch -- Применяется для условного вывода элементов в DOM аналогично switch case JavaScript
+
+<div [ngSwitch]="hero?.emotion">
+  <app-happy-hero *ngSwitchCase="'happy'" [hero]="hero"></app-happy-hero>
+  <app-sad-hero *ngSwitchCase="'sad'" [hero]="hero"></app-sad-hero>
+</div>
+
+Преобразуется в:
+<div [ngSwitch]="hero?.emotion">
+  <ng-template [ngSwitchCase]="'happy'">
+    <app-happy-hero [hero]="hero"></app-happy-hero>
+  </ng-template>
+  <ng-template [ngSwitchCase]="'sad'">
+    <app-sad-hero [hero]="hero"></app-sad-hero>
+  </ng-template>
+</div>
+
+*ngFor -- Применяется для итерации по элементам массива и отрисовки элементов в массиве в таком количестве, в котором они содержаться в массиве.
+
+*ngFor microsyntax
+let [template input variable] of [array];
+let myVariable = [variable];
+
+========================================================================
+Variable         | Meaning                        | Return type
+========================================================================
+index            |  Индекс текущего элемента      |  number (starts 0)
+------------------------------------------------------------------------
+first            |  Является ли элемент первым    |  boolean
+------------------------------------------------------------------------
+last             |  Является ли элемент последним |  boolean
+------------------------------------------------------------------------
+even             |  Является ли элемент четным    |  boolean
+------------------------------------------------------------------------
+odd              |  Является ли элемент нечетным  |  boolean
+------------------------------------------------------------------------
+
+Используется микросинтаксис следующим образом:
+  <div *ngFor="let post of posts; let i = index; let isOdd = odd" [class.grey] = "isOdd"></div>
+
+<ng-container></ng-container> -- Структурная обертка, которая будет показываться всегда. ng-container не создает тег-обертку
+
+Директива -- это TypeScript класс который использует соответствующий декоратор, этот класс аттачиться (подключается) к существующему DOM элементу и изменяет его внешний вид, поведение или структуру.
+
+В зависимости от того, для чего предназначены директивы. Директивы подразделяются на атрибутные и структурные.
+Атрибутные директивы изменяют внешний вид элемента и поведение.
+Структурные директивы изменяют структуру DOM элемента (Могут убирать элемент либо добавлять, либо повторять его необходимое количество раз).
+
+
+# Pipe
+
+Pipe -- это класс со своим декоратором. Этот класс позволяет изменять данные внутри шаблона.
+Использует декоратор @Pipe
+
+Имеют следующий листинг использования:
+<p>{{ выражение | имя_pipe:параметр_1:параметр_2 }}</p>
+Пример:
+<p>{{ 'Angular' | slice:3 | uppercase }}</p>
+
+Pipe принимает и возвращает значение, что позволяет чейнить Pipe внутри шаблона.
+
+Так же можно использовать Pipe внутри класса как функции, для этого сначала импортируем их в класс
+
+import { AgePipe } from ....
+import { DatePipe } from ...
+
+, указываем в декораторе компонента как providers
+
+@Constructors({
+  ...
+  providers: [AgePipe, DatePipe],
+  ...
+})
+
+, назначаем соответствующим полям в конструкторе
+
+constructor(private datePipe: DatePipe, private agePipe: AgePipe) {}
+
+, а затем используем в коде
+
+public currentDay = this.datePipe.transform(new Date(), 'yyyy/MM/dd');
+....
+this.employee = this.agePipe.transform(employees, 30);
+
+Стандартные Pipe:
+date 
+  Принимает аргумент с форматом даты в формате типа 'dd:MM:yy', либо предопределенные форматы: 'short', 'medium', 'long' и т.п.
+
+slice -- аналогично строкам и массивал
+
+currency -- для форматирования валюты
+
+number (Decimal Pipe) -- для форматирования десятичной дроби
+
+uppercase
+
+lowercase
+
+titlecase
+
+percent
+
+please -- добавляет please в начало строки
+
+Pure Pipe -- это пайп по дефолту. Функция transform которого выполняется только в случае изменения примитивного значения либо изменения ссылки на объект. В случае мутации объекта (добавления свойства, добавление элемента в массив, изменение свойства) Pipe не отрабатывает.
+
+Impure Pipe реагирует абсолютно на всё. Но есть особенность, такой Pipe срабатывает на каждый чих приложения, каждый event.
