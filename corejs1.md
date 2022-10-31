@@ -855,7 +855,7 @@ Events Basics
   };
   
   # DOM Events
-  
+
   # Know basic Event types
   https://itchief.ru/javascript/browser-events
 
